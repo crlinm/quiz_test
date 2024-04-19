@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        .container {
+            max-width: 600px;
+            margin: 20px auto;
+            background-color: #fff;
+            border-radius: 5px;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        #question {
+            font-size: 20px;
+            margin-bottom: 20px;
+        }
+        #options {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 10px;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #4caf50;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Quiz</h1>
+
+        <div id="question"></div>
+        <div id="options"></div>
+        <button onclick="checkAnswer()">Submit</button>
+    </div>
+
+    <script>
+        // Вопросы и ответы
+        var questions = [
+            {
+                prompt: "When the tester verifies the test basis while designing tests early in the lifecycle, which test objective is being achieved?",
+                options: ["Gaining confidence", "Finding defects", "Evaluating work products", "Providing information for decision making"],
+                correctAnswerIndex: 2
+            },
+            {
+                prompt: "In some Agile teams, people are encouraged to use their skills to help the team, regardless of their role. This could mean that testers help the developers write code and developers help testers test. What is this approach called?",
+                options: ["Team Aid", "Whole Team", "Skills First", "First Aid"],
+                correctAnswerIndex: 1
+            },
+            {
+                prompt: "Which of the following is a correct statement?",
+                options: [
+                    "A developer makes a mistake which causes a defect that may be seen as a failure during dynamic testing",
+                    "A developer makes an error which results in a failure that may be seen as a fault when the software is executed",
+                    "A developer has introduced a failure which results in a defect that may be seen as a mistake during dynamic testing",
+                    "A developer makes a mistake which causes a bug that may be seen as a defect when the software is executed"
+                ],
+                correctAnswerIndex: 0
+            },
+			    {
+                prompt: "Why is it important to avoid the principle of tests wearing out?",
+                options: [
+                    "Dynamic testing is less reliable in finding bugs",
+                    "Running the same tests repeatedly will consistently find new failures",
+                    "Tests should not be context dependent",
+                    "Running the same tests repeatedly will reduce the chance of finding new failures"
+                ],
+                correctAnswerIndex: 3
+            },
+            {
+                prompt: "When following a standard test process, when should the test control activity take place?",
+                options: ["During the planning activities", "During the implementation and execution activities", "During the monitoring activities", "During all the activities"],
+                correctAnswerIndex: 3
+            },
+            {
+                prompt: "Which of the following is the activity that compares the planned test progress to the actual test progress?",
+                options: ["Test monitoring", "Test planning", "Test closure", "Test control"],
+                correctAnswerIndex: 0
+            },
+            {
+                prompt: "If you are working on a project that is constrained by time and budget, which is pressuring testing to be done quickly. How should the test approach be adjusted?",
+                options: ["Develop detailed test cases to reduce the test automation effort", "Use techniques such as exploratory and checklist testing to spend less time on test case development", "Ensure that your testing starts only after the developers have completed integration tests", "Develop end-to-end test automation before performing manual testing so the automation can be used sooner"],
+                correctAnswerIndex: 1
+            },
+            {
+                prompt: "What is the biggest problem with a developer testing his own code?",
+                options: ["Developers are not good testers", "Developers are not quality focused", "Developers are not objective about their own code", "Developers do not have time to test their own code"],
+                correctAnswerIndex: 2
+            },
+            {
+                prompt: "Which of the following is an example of a good testing practice?",
+                options: ["Testers should have development experience", "Developers should determine the order of test execution in the test procedures", "Test design should begin when the code is complete to avoid changes", "Testers should review requirements documents as soon as a readable draft is available"],
+                correctAnswerIndex: 3
+            },
+            {
+                prompt: "When coding is directed by the test cases, what development approach is being used?",
+                options: ["TDD", "BDD", "ATDD", "TBD"],
+                correctAnswerIndex: 0
+            },
+            {
+                prompt: "During which level(s) of testing should non-functional tests be executed?",
+                options: ["Unit and integration only", "System testing only", "Integration, system and acceptance only", "Unit, integration, system and acceptance only"],
+                correctAnswerIndex: 3
+            },
+            {
+                prompt: "When a system is targeted for decommissioning, what type of maintenance testing may be required?",
+                options: ["Retirement testing", "Regression testing", "Data migration testing", "Patch testing"],
+                correctAnswerIndex: 2
+            }
+
+            // Другие вопросы здесь
+        ];
+
+        var currentQuestionIndex = 0;
+        var score = 0;
+
+        // Функция для отображения вопроса и вариантов ответов
+        function displayQuestion() {
+            var questionElement = document.getElementById("question");
+            var optionsElement = document.getElementById("options");
+            questionElement.textContent = questions[currentQuestionIndex].prompt;
+            optionsElement.innerHTML = "";
+            questions[currentQuestionIndex].options.forEach(function(option, index) {
+                var radioButton = document.createElement("input");
+                radioButton.type = "radio";
+                radioButton.name = "option";
+                radioButton.value = index;
+                optionsElement.appendChild(radioButton);
+                var label = document.createElement("label");
+                label.textContent = option;
+                optionsElement.appendChild(label);
+                optionsElement.appendChild(document.createElement("br"));
+            });
+        }
+
+        // Функция для проверки ответа
+        function checkAnswer() {
+            var selectedOption = document.querySelector("input[name='option']:checked");
+            if (selectedOption) {
+                var userAnswerIndex = parseInt(selectedOption.value);
+                if (userAnswerIndex === questions[currentQuestionIndex].correctAnswerIndex) {
+                    score++;
+                }
+                currentQuestionIndex++;
+                if (currentQuestionIndex < questions.length) {
+                    displayQuestion();
+                } else {
+                    alert("Quiz completed! Your score: " + score + "/" + questions.length);
+                }
+            } else {
+                alert("Please select an answer!");
+            }
+        }
+
+        // Начало квиза
+        displayQuestion();
+    </script>
+</body>
+</html>
