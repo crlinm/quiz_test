@@ -147,11 +147,9 @@
                 radioButton.type = "radio";
                 radioButton.name = "option";
                 radioButton.value = index;
-                optionsElement.appendChild(radioButton);
                 var label = document.createElement("label");
-                label.textContent = option;
-                optionsElement.appendChild(label);
-                optionsElement.appendChild(document.createElement("br"));
+                label.append(radioButton, option);
+                optionsElement.append(label, document.createElement("br"));
             });
         }
 
