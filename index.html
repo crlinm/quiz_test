@@ -45,19 +45,29 @@
         button:hover {
             background-color: #45a049;
         }
+        .correct {
+            color: green;
+        }
+        .incorrect {
+            color: red;
+        }
+
+		
     </style>
 </head>
 <body>
+
+	
+	<body>
     <div class="container">
         <h1>Quiz</h1>
-
         <div id="question"></div>
         <div id="options"></div>
         <button onclick="checkAnswer()">Submit</button>
     </div>
 
     <script>
-        // Вопросы и ответы
+        // Questions and answers
         var questions = [
             {
                 prompt: "When the tester verifies the test basis while designing tests early in the lifecycle, which test objective is being achieved?",
@@ -79,7 +89,7 @@
                 ],
                 correctAnswerIndex: 0
             },
-			    {
+            {
                 prompt: "Why is it important to avoid the principle of tests wearing out?",
                 options: [
                     "Dynamic testing is less reliable in finding bugs",
@@ -89,54 +99,453 @@
                 ],
                 correctAnswerIndex: 3
             },
-            {
-                prompt: "When following a standard test process, when should the test control activity take place?",
-                options: ["During the planning activities", "During the implementation and execution activities", "During the monitoring activities", "During all the activities"],
-                correctAnswerIndex: 3
-            },
-            {
-                prompt: "Which of the following is the activity that compares the planned test progress to the actual test progress?",
-                options: ["Test monitoring", "Test planning", "Test closure", "Test control"],
-                correctAnswerIndex: 0
-            },
-            {
-                prompt: "If you are working on a project that is constrained by time and budget, which is pressuring testing to be done quickly. How should the test approach be adjusted?",
-                options: ["Develop detailed test cases to reduce the test automation effort", "Use techniques such as exploratory and checklist testing to spend less time on test case development", "Ensure that your testing starts only after the developers have completed integration tests", "Develop end-to-end test automation before performing manual testing so the automation can be used sooner"],
-                correctAnswerIndex: 1
-            },
-            {
-                prompt: "What is the biggest problem with a developer testing his own code?",
-                options: ["Developers are not good testers", "Developers are not quality focused", "Developers are not objective about their own code", "Developers do not have time to test their own code"],
-                correctAnswerIndex: 2
-            },
-            {
-                prompt: "Which of the following is an example of a good testing practice?",
-                options: ["Testers should have development experience", "Developers should determine the order of test execution in the test procedures", "Test design should begin when the code is complete to avoid changes", "Testers should review requirements documents as soon as a readable draft is available"],
-                correctAnswerIndex: 3
-            },
-            {
-                prompt: "When coding is directed by the test cases, what development approach is being used?",
-                options: ["TDD", "BDD", "ATDD", "TBD"],
-                correctAnswerIndex: 0
-            },
-            {
-                prompt: "During which level(s) of testing should non-functional tests be executed?",
-                options: ["Unit and integration only", "System testing only", "Integration, system and acceptance only", "Unit, integration, system and acceptance only"],
-                correctAnswerIndex: 3
-            },
-            {
-                prompt: "When a system is targeted for decommissioning, what type of maintenance testing may be required?",
-                options: ["Retirement testing", "Regression testing", "Data migration testing", "Patch testing"],
-                correctAnswerIndex: 2
-            }
-
-            // Другие вопросы здесь
+    {
+        "prompt": "When following a standard test process, when should the test control activity take place?",
+        "options": [
+            "During the planning activities",
+            "During the implementation and execution activities",
+            "During the monitoring activities",
+            "During all the activities"
+        ],
+        "correctAnswerIndex": 3
+    },
+    {
+        "prompt": "Which of the following is the activity that compares the planned test progress to the actual test progress?",
+        "options": [
+            "Test monitoring",
+            "Test planning",
+            "Test closure",
+            "Test control"
+        ],
+        "correctAnswerIndex": 0
+    },
+    {
+        "prompt": "If you are working on a project that is constrained by time and budget, which is pressuring testing to be done quickly. How should the test approach be adjusted?",
+        "options": [
+            "Develop detailed test cases to reduce the test automation effort",
+            "Use techniques such as exploratory and checklist testing to spend less time on test case development",
+            "Ensure that your testing starts only after the developers have completed integration tests",
+            "Develop end-to-end test automation before performing manual testing so the automation can be used sooner"
+        ],
+        "correctAnswerIndex": 1
+    },
+    {
+        "prompt": "What is the biggest problem with a developer testing his own code?",
+        "options": [
+            "Developers are not good testers",
+            "Developers are not quality focused",
+            "Developers are not objective about their own code",
+            "Developers do not have time to test their own code"
+        ],
+        "correctAnswerIndex": 2
+    },
+    {
+        "prompt": "Which of the following is an example of a good testing practice?",
+        "options": [
+            "Testers should have development experience",
+            "Developers should determine the order of test execution in the test procedures",
+            "Test design should begin when the code is complete to avoid changes",
+            "Testers should review requirements documents as soon as a readable draft is available"
+        ],
+        "correctAnswerIndex": 3
+    },
+    {
+        "prompt": "When coding is directed by the test cases, what development approach is being used?",
+        "options": [
+            "TDD",
+            "BDD",
+            "ATDD",
+            "TBD"
+        ],
+        "correctAnswerIndex": 0
+    },
+    {
+        "prompt": "During which level(s) of testing should non-functional tests be executed?",
+        "options": [
+            "Unit and integration only",
+            "System testing only",
+            "Integration, system and acceptance only",
+            "Unit, integration, system and acceptance only"
+        ],
+        "correctAnswerIndex": 3
+    },
+    {
+        "prompt": "When a system is targeted for decommissioning, what type of maintenance testing may be required?",
+        "options": [
+            "Retirement testing",
+            "Regression testing",
+            "Data migration testing",
+            "Patch testing"
+        ],
+        "correctAnswerIndex": 2
+    },
+    {
+        "prompt": "In an iterative lifecycle model, which of the following is an accurate statement about testing activities?",
+        "options": [
+            "For every development activity, there should be a corresponding testing activity",
+            "For every testing activity, appropriate documentation should be produced, versioned and stored",
+            "For every development activity resulting in code, there should be a testing activity to document test cases",
+            "For every testing activity, metrics should be recorded and posted to a metrics dashboard for all stakeholders"
+        ],
+        "correctAnswerIndex": 0
+    },
+    {
+        "prompt": "In what way is CI/CD an example of the concept of shift-left?",
+        "options": [
+            "It gets the code to production faster",
+            "It allows the developers to continuously integrate their code",
+            "It requires continuous testing throughout the pipeline",
+            "It elevates the testers as the owners of quality"
+        ],
+        "correctAnswerIndex": 2
+    },
+    {
+        "prompt": "In a formal review, which role is normally responsible for documenting all the open issues?",
+        "options": [
+            "The facilitator",
+            "The author",
+            "The scribe",
+            "The manager"
+        ],
+        "correctAnswerIndex": 2
+    },
+    {
+        "prompt": "What is the primary reason to get early and frequent feedback from stakeholders regarding a product being developed?",
+        "options": [
+            "To make them feel involved",
+            "To ensure that their vision for the product will be realized",
+            "To create more meetings",
+            "To use the stakeholders as testers"
+        ],
+        "correctAnswerIndex": 1
+    },
+    {
+        "prompt": "Which of the following is a benefit of static analysis?",
+        "options": [
+            "Defects can be identified that might not be caught by dynamic testing",
+            "Early defect identification requires less documentation",
+            "Early execution of the code provides a gauge of code quality",
+            "Tools are not needed because reviews are used instead of executing code"
+        ],
+        "correctAnswerIndex": 0
+    },
+    {
+        "prompt": "For a formal review, at what point in the process are the exit criteria defined?",
+        "options": [
+            "Planning",
+            "Review initiation",
+            "Individual review",
+            "Fixing and reporting"
+        ],
+        "correctAnswerIndex": 0
+    },
+    {
+        "prompt": "Which of the following test techniques uses the requirements specifications as a test basis?",
+        "options": [
+            "Structure-based",
+            "Black-box",
+            "White-box",
+            "Exploratory"
+        ],
+        "correctAnswerIndex": 1
+    },
+    {
+        "prompt": "If you are testing a module of code, how do you determine the level of branch coverage you have achieved?",
+        "options": [
+            "By taking the number of branches you have tested and dividing that by the total number of executable statements in the module",
+            "By taking the number of branches you have tested and dividing that by the total number of branches in the module",
+            "By taking the number of branches you have tested and dividing that by the total lines of code in the module",
+            "By taking the number of branches you have tested and dividing that by the total number of test cases you have executed for the module"
+        ],
+        "correctAnswerIndex": 1
+    },
+    {
+        "prompt": "If you have a section of code that has one simple IF statement, how many tests will be needed to achieve 100% branch coverage?",
+        "options": [
+            "1",
+            "2",
+            "5",
+            "Unknown with this information"
+        ],
+        "correctAnswerIndex": 1
+    },
+    {
+        "prompt": "Which of the following is a good reason to use experience-based testing?",
+        "options": [
+            "You can find defects that might be missed by more formal techniques",
+            "You can test for defects that only experienced users would encounter",
+            "You can target the developer’s efforts to the areas that users will be more likely to use",
+            "It is supported by strong tools and can be automated"
+        ],
+        "correctAnswerIndex": 0
+    },
+    {
+        "prompt": "When is regression testing performed?",
+        "options": [
+            "Only after system testing",
+            "Every time a new version of the software is ready",
+            "During system testing and acceptance testing only",
+            "During system testing and maintenance testing only"
+        ],
+        "correctAnswerIndex": 1
+    },
+    {
+        "prompt": "What can be concluded from the finding of multiple defects in a given area of the code by an experienced tester?",
+        "options": [
+            "The developer writing the code is not skilled",
+            "The testers assigned to the project are experienced",
+            "The area of code tested has defects",
+            "More testing is needed"
+        ],
+        "correctAnswerIndex": 2
+    },
+    {
+        "prompt": "During which of the following test activities is the test data prepared and loaded into the test environment?",
+        "options": [
+            "Test planning",
+            "Test design",
+            "Test execution",
+            "Test closure"
+        ],
+        "correctAnswerIndex": 2
+    },
+    {
+        "prompt": "When should the development of test procedures begin?",
+        "options": [
+            "During test planning",
+            "After the code has been written",
+            "After the requirements have been baselined",
+            "During test execution"
+        ],
+        "correctAnswerIndex": 0
+    },
+    {
+        "prompt": "In a formal review, who has the most responsibility for conducting the review?",
+        "options": [
+            "The facilitator",
+            "The author",
+            "The scribe",
+            "The manager"
+        ],
+        "correctAnswerIndex": 0
+    },
+    {
+        "prompt": "Which of the following is a limitation of test execution tools?",
+        "options": [
+            "They are often expensive",
+            "They require skilled staff to operate them",
+            "They can only execute tests",
+            "They can only execute tests written in a specific programming language"
+        ],
+        "correctAnswerIndex": 1
+    },
+    {
+        "prompt": "What is the primary benefit of test automation?",
+        "options": [
+            "It can find more defects",
+            "It can improve test effectiveness and efficiency",
+            "It requires less skilled staff",
+            "It provides better documentation"
+        ],
+        "correctAnswerIndex": 1
+    },
+    {
+        "prompt": "What is the most significant challenge in early testing?",
+        "options": [
+            "Finding defects",
+            "Establishing a stable test environment",
+            "Defining test conditions",
+            "Gaining access to the development environment"
+        ],
+        "correctAnswerIndex": 2
+    },
+    {
+        "prompt": "What is a test condition?",
+        "options": [
+            "The detailed steps that must be performed to conduct a test",
+            "A set of inputs, execution preconditions, and expected outcomes developed for a particular objective, such as to exercise a particular program path or to verify compliance with a specific requirement",
+            "The environment into which the software is installed, including hardware and software as well as data",
+            "An expected result or outcome"
+        ],
+        "correctAnswerIndex": 1
+    },
+    {
+        "prompt": "Which of the following is an example of non-functional testing?",
+        "options": [
+            "Component testing",
+            "Smoke testing",
+            "Usability testing",
+            "Installation testing"
+        ],
+        "correctAnswerIndex": 2
+    },
+    {
+        "prompt": "What is the purpose of a test summary report?",
+        "options": [
+            "To summarize all the tests that were performed",
+            "To identify any leftover testing",
+            "To provide stakeholders with information about the release",
+            "To identify the skills required for future testing efforts"
+        ],
+        "correctAnswerIndex": 2
+    },
+    {
+        "prompt": "Which of the following types of testing is most closely associated with system and acceptance testing?",
+        "options": [
+            "Black-box",
+            "White-box",
+            "Gray-box",
+            "Component"
+        ],
+        "correctAnswerIndex": 0
+    },
+    {
+        "prompt": "In what way can risk-based testing be performed?",
+        "options": [
+            "By applying static analysis",
+            "By relying solely on the test cases developed during test planning",
+            "By determining the priority of test cases based on an analysis of the business, technical, and operational risks",
+            "By requiring all tests to be executed before releasing the software"
+        ],
+        "correctAnswerIndex": 2
+    },
+    {
+        "prompt": "What is the main reason to establish traceability between the requirements and the test cases?",
+        "options": [
+            "To ensure that all requirements are implemented",
+            "To ensure that all tests have traceability to the requirements",
+            "To ensure that the requirements will be understandable to the testers",
+            "To ensure that defects will be found during test execution"
+        ],
+        "correctAnswerIndex": 0
+    },
+    {
+        "prompt": "What is the main purpose of test execution?",
+        "options": [
+            "To find defects",
+            "To ensure that the software performs as designed",
+            "To ensure that all the tests have been executed",
+            "To ensure that all the requirements have been implemented"
+        ],
+        "correctAnswerIndex": 1
+    },
+    {
+        "prompt": "In which phase of a formal review would the participants discuss the defects found during the review?",
+        "options": [
+            "Planning",
+            "Individual review",
+            "Fixing and reporting",
+            "Follow-up"
+        ],
+        "correctAnswerIndex": 3
+    },
+    {
+        "prompt": "What is the main purpose of test design?",
+        "options": [
+            "To identify and prioritize what should be tested",
+            "To specify how the software should be tested",
+            "To develop test cases and test procedures",
+            "To ensure that the software performs as designed"
+        ],
+        "correctAnswerIndex": 2
+    },
+    {
+        "prompt": "Which of the following statements about testing is true?",
+        "options": [
+            "Testing is primarily a defect detection activity",
+            "Testing can demonstrate that software functions properly under all conditions",
+            "Testing is useful only if defects are found",
+            "Testing is only used for debugging"
+        ],
+        "correctAnswerIndex": 0
+    },
+    {
+        "prompt": "Which of the following is a type of non-functional testing?",
+        "options": [
+            "Smoke testing",
+            "Functional testing",
+            "Black-box testing",
+            "Reliability testing"
+        ],
+        "correctAnswerIndex": 3
+    },
+    {
+        "prompt": "When is dynamic analysis typically used?",
+        "options": [
+            "During the planning stages of development",
+            "During the requirements phase",
+            "During coding and testing",
+            "After the software is deployed"
+        ],
+        "correctAnswerIndex": 2
+    },
+    {
+        "prompt": "Which of the following is an accurate statement about test objectives?",
+        "options": [
+            "They are the goals and constraints of the testing effort",
+            "They should be left open-ended to allow for flexibility",
+            "They are defined after the software is developed",
+            "They are the same as test conditions"
+        ],
+        "correctAnswerIndex": 0
+    },
+    {
+        "prompt": "What is the primary difference between acceptance testing and system testing?",
+        "options": [
+            "Acceptance testing is always conducted by the customer",
+            "Acceptance testing occurs before system testing",
+            "System testing is always conducted by the customer",
+            "Acceptance testing is focused on satisfying the customer's needs"
+        ],
+        "correctAnswerIndex": 3
+    },
+    {
+        "prompt": "Which of the following is a key success factor for test automation?",
+        "options": [
+            "Large test teams",
+            "Highly skilled staff",
+            "Frequent changes to requirements",
+            "Reusable test data"
+        ],
+        "correctAnswerIndex": 3
+    },
+    {
+        "prompt": "When is acceptance testing usually performed?",
+        "options": [
+            "During system testing",
+            "During system and acceptance testing",
+            "After system testing",
+            "Before system testing"
+        ],
+        "correctAnswerIndex": 2
+    },
+    {
+        "prompt": "Which of the following is a black-box testing technique?",
+        "options": [
+            "Statement coverage",
+            "Data flow testing",
+            "Equivalence partitioning",
+            "Path testing"
+        ],
+        "correctAnswerIndex": 2
+    },
+    {
+        "prompt": "Which of the following is a characteristic of good testing?",
+        "options": [
+            "100% statement coverage",
+            "100% path coverage",
+            "A user is always available to test the software",
+            "Adherence to the principles of test-driven development"
+        ],
+        "correctAnswerIndex": 3
+    }
         ];
 
         var currentQuestionIndex = 0;
         var score = 0;
+        var userAnswers = [];
 
-        // Функция для отображения вопроса и вариантов ответов
+        // Function to display question and answer options
         function displayQuestion() {
             var questionElement = document.getElementById("question");
             var optionsElement = document.getElementById("options");
@@ -147,33 +556,65 @@
                 radioButton.type = "radio";
                 radioButton.name = "option";
                 radioButton.value = index;
+                // Pre-select user's previous answer
+                if (userAnswers[currentQuestionIndex] === index) {
+                    radioButton.checked = true;
+                }
                 var label = document.createElement("label");
                 label.append(radioButton, option);
                 optionsElement.append(label, document.createElement("br"));
             });
         }
 
-        // Функция для проверки ответа
+        // Function to check answer
         function checkAnswer() {
             var selectedOption = document.querySelector("input[name='option']:checked");
             if (selectedOption) {
                 var userAnswerIndex = parseInt(selectedOption.value);
+                userAnswers[currentQuestionIndex] = userAnswerIndex; // Store user's answer
                 if (userAnswerIndex === questions[currentQuestionIndex].correctAnswerIndex) {
-                    score++;
+                    alert("Correct!");
+					score++;
+                } else {
+                    alert("Incorrect. The correct option is: " + questions[currentQuestionIndex].options[questions[currentQuestionIndex].correctAnswerIndex]);
                 }
                 currentQuestionIndex++;
                 if (currentQuestionIndex < questions.length) {
                     displayQuestion();
                 } else {
-                    alert("Quiz completed! Your score: " + score + "/" + questions.length);
+                    showResults();
                 }
             } else {
                 alert("Please select an answer!");
             }
         }
+		
+		
+        // Function to display quiz results
+        function showResults() {
+            var totalQuestions = questions.length;
+            var correctAnswers = score;
+            var incorrectAnswers = totalQuestions - score;
+            var percentage = (score / totalQuestions) * 100;
+            var resultsHTML = "<h2>Quiz Results</h2>";
+            questions.forEach(function(question, index) {
+                var userAnswerIndex = userAnswers[index];
+                resultsHTML += "<p><strong>Question " + (index + 1) + ":</strong> " + question.prompt + "</p>";
+                if (userAnswerIndex === question.correctAnswerIndex) {
+                    resultsHTML += "<p class='correct'>Your answer: " + question.options[userAnswerIndex] + " (Correct)</p>";
+                } else {
+                    resultsHTML += "<p class='incorrect'>Your answer: " + question.options[userAnswerIndex] + " (Incorrect, Correct answer: " + question.options[question.correctAnswerIndex] + ")</p>";
+                }
+            });
+            resultsHTML += "<p>Total correct answers: " + correctAnswers + "</p>";
+            resultsHTML += "<p>Total incorrect answers: " + incorrectAnswers + "</p>";
+            resultsHTML += "<p>Percentage: " + percentage.toFixed(1) + "%</p>";
+            document.body.innerHTML = resultsHTML;
+        }
 
-        // Начало квиза
+        // Start the quiz
         displayQuestion();
     </script>
 </body>
 </html>
+
