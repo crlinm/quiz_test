@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        .container {
+            max-width: 600px;
+            margin: 20px auto;
+            background-color: #fff;
+            border-radius: 5px;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        #question {
+            font-size: 20px;
+            margin-bottom: 20px;
+        }
+        #options {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 10px;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #4caf50;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .correct {
+            color: green;
+        }
+        .incorrect {
+            color: red;
+        }
+
+		
+    </style>
+</head>
+<body>
+
+	
+	<body>
+    <div class="container">
+        <h1>Quiz</h1>
+        <div id="question"></div>
+        <div id="options"></div>
+        <button onclick="checkAnswer()">Submit</button>
+    </div>
+
+    <script>
+        // Questions and answers
+        var questions = [
+		{
+    "prompt": "Which of the following statements describe a valid test objective?",
+    "options": [
+        "To prove that there are no unfixed defects in the system under test",
+        "To prove that there will be no failures after the implementation of the system into production",
+        "To reduce the risk level of the test object and to build confidence in the quality level",
+        "To verify that there are no untested combinations of inputs"
+    ],
+    "correctAnswerIndex": 2
+},
+{
+    "prompt": "Which of the following options shows an example of test activities that contribute to success?",
+    "options": [
+        "Having testers involved during various software development lifecycle (SDLC) activities will help to detect defects in work products",
+        "Testers try not to disturb the developers while coding, so that the developers write better code",
+        "Testers collaborating with end users help to improve the quality of defect reports during component integration and system testing",
+        "Certified testers will design much better test cases than non-certified testers"
+    ],
+    "correctAnswerIndex": 2
+},
+{
+    "prompt": "You have been assigned as a tester to a team producing a new system incrementally. You have noticed that no changes have been made to the existing regression test cases for several iterations and no new regression defects were identified. Your manager is happy, but you are not. Which testing principle explains your skepticism?",
+    "options": [
+        "Tests wear out",
+        "Absence-of-errors fallacy",
+        "Defects cluster together",
+        "Exhaustive testing is impossible"
+    ],
+    "correctAnswerIndex": 1
+},
+{
+    "prompt": "You work in a team that develops a mobile application for food ordering. In the current iteration the team decided to implement the payment functionality. Which of the following activities is a part of test analysis?",
+    "options": [
+        "Estimating that testing the integration with the payment service will take 8 person-days",
+        "Deciding that the team should test if it is possible to properly share payment between many users",
+        "Using boundary value analysis (BVA) to derive the test data for the test cases that check the correct payment processing for the minimum allowed amount to be paid",
+        "Analyzing the discrepancy between the actual result and expected result after executing a test case that checks the process of payment with a credit card, and reporting a defect"
+    ],
+    "correctAnswerIndex": 2
+},
+{
+    "prompt": "Which of the following factors (i-v) have SIGNIFICANT influence on the test process?",
+    "options": [
+        "i. The SDLC\nii. The number of defects detected in previous projects\niii. The identified product risks\niv. New regulatory requirements forcing formal white-box testing\nv. The test environment setup",
+        "i, ii have significant influence; iii, iv, v have not",
+        "i, iii, iv have significant influence; ii, v have not",
+        "ii, iv, v have significant influence; i, iii have not",
+        "iii, v have significant influence; i, ii, iv have not"
+    ],
+    "correctAnswerIndex": 2
+},
+{
+    "prompt": "Which TWO of the following tasks belong MAINLY to a testing role?",
+    "options": [
+        "Configure test environments",
+        "Maintain the product backlog",
+        "Design solutions to new requirements",
+        "Create the test plan",
+        "Report on achieved coverage"
+    ],
+    "correctAnswerIndices": [0, 4]
+},
+{
+    "prompt": "Which of the following skills (i-v) are the MOST important skills of a tester?",
+    "options": [
+        "i. Having domain knowledge\nii. Creating a product vision\niii. Being a good team player\niv. Planning and organizing the work of the team\nv. Critical thinking",
+        "ii and iv are important; i, iii and v are not",
+        "i, iii and v are important; ii and iv are not",
+        "i, ii and v are important; iii and iv are not",
+        "iii and iv are important; i, ii and v are not"
+    ],
+    "correctAnswerIndex": 3
+},
+{
+    "prompt": "How is the whole team approach present in the interactions between testers and business representatives?",
+    "options": [
+        "Business representatives decide on test automation approaches",
+        "Testers help business representatives to define test strategy",
+        "Business representatives are not part of the whole team approach",
+        "Testers help business representatives to create suitable acceptance tests"
+    ],
+    "correctAnswerIndex": 3
+},
+{
+    "prompt": "Consider the following rule: 'for every SDLC activity there is a corresponding test activity'. In which SDLC models does this rule hold?",
+    "options": [
+        "Only in sequential SDLC models",
+        "Only in iterative SDLC models",
+        "Only in iterative and incremental SDLC models",
+        "In sequential, incremental, and iterative SDLC models"
+    ],
+    "correctAnswerIndex": 2
+},
+{
+    "prompt": "Which of the following statements BEST describes the acceptance test-driven development (ATDD) approach?",
+    "options": [
+        "In ATDD, acceptance criteria are typically created based on the given/when/then format",
+        "In ATDD, test cases are mainly created at component testing and are code-oriented",
+        "In ATDD, tests are created, based on acceptance criteria to drive the development of the related software",
+        "in ATDD, tests are based on the desired behavior of the software, which makes it easier for team members to understand them"
+    ],
+    "correctAnswerIndex": 2
+},
+{
+    "prompt": "Which of the following is NOT an example of the shift left approach?",
+    "options": [
+        "Reviewing the user requirements before they are formally accepted by the stakeholders",
+        "Writing a component test before the corresponding code is written",
+        "Executing a performance efficiency test for a component during component testing",
+        "Writing a test script before setting up the configuration management process"
+    ],
+    "correctAnswerIndex": 2
+},
+{
+    "prompt": "Which of the arguments below would you use to convince your manager to organize retrospectives at the end of each release cycle?",
+    "options": [
+        "Retrospectives are very popular these days and clients would appreciate it if we added them to our processes",
+        "Organizing retrospectives will save the organization money because end user representatives do not provide immediate feedback about the product",
+        "Process weaknesses identified during the retrospective can be analyzed and serve as a to do list for the organization’s continuous process improvement program",
+        "Retrospectives embrace five values including courage and respect, which are crucial to maintain continuous improvement in the organization"
+    ],
+    "correctAnswerIndex": 2
+},
+{
+    "prompt": "Which types of failures (1-4) fit which test levels (A-D) BEST?",
+    "options": [
+        "1. Failures in system behavior as it deviates from the user’s business needs\n2. Failures in communication between components\n3. Failures in logic in a module\n4. Failures in not correctly implemented business rules",
+        "1D, 2B, 3A, 4C",
+
+
+        "1D, 2B, 3C, 4A",
+        "1B, 2A, 3D, 4C",
+        "1C, 2B, 3A, 4D"
+    ],
+    "correctAnswerIndex": 3
+},
+{
+    "prompt": "You are testing a user story with three acceptance criteria: AC1, AC2 and AC3. AC1 is covered by test case TC1, AC2 by TC2, and AC3 by TC3. The test execution history had three test runs on three consecutive versions of the software as follows: Execution 1 Execution 2 Execution 3 TC1 (1) Failed (4) Passed (7) Passed TC2 (2) Passed (5) Failed (8) Passed TC3 (3) Failed (6) Failed (9) Passed Tests are repeated once you are informed that all defects found in the test run are corrected and a new version of the software is available. Which of the above tests are executed as regression tests?",
+    "options": [
+        "Only 4, 7, 8, 9",
+        "Only 5, 7",
+        "Only 4, 6, 8, 9",
+        "Only 5, 6"
+    ],
+    "correctAnswerIndex": 2
+},
+{
+    "prompt": "Which of the following is NOT a benefit of static testing?",
+    "options": [
+        "Having less expensive defect management due to the ease of detecting defects later in the SDLC",
+        "Fixing defects found during static testing is generally much less expensive than fixing defects found during dynamic testing",
+        "Finding coding defects that might not have been found by only performing dynamic testing",
+        "Detecting gaps and inconsistencies in requirements"
+    ],
+    "correctAnswerIndex": 0
+},
+{
+    "prompt": "Which of the following is a benefit of early and frequent feedback?",
+    "options": [
+        "It improves the test process for future projects",
+        "It forces customers to prioritize their requirements based on agreed risks",
+        "It is the only way to measure the quality of changes",
+        "It helps avoid requirements misunderstandings"
+    ],
+    "correctAnswerIndex": 3
+},
+{
+    "prompt": "The reviews being used in your organization have the following attributes:  There is the role of a scribe  The main purpose is to evaluate quality  The meeting is led by the author of the work product  There is individual preparation  A review report is produced Which of the following review types is MOST likely being used?",
+    "options": [
+        "Informal review",
+        "Walkthrough",
+        "Technical review",
+        "Inspection"
+    ],
+    "correctAnswerIndex": 3
+},
+{
+    "prompt": "Which of these statements is NOT a factor that contributes to successful reviews?",
+    "options": [
+        "Participants should dedicate adequate time for the review",
+        "Splitting large work products into small parts to make the required effort less intense",
+        "Participants should avoid behaviors that might indicate boredom, exasperation, or hostility to other participants",
+        "Failures found should be acknowledged, appreciated, and handled objectively"
+    ],
+    "correctAnswerIndex": 1
+},
+{
+    "prompt": "Which of the following is a characteristic of experience-based test techniques?",
+    "options": [
+        "Test cases are created based on detailed design information",
+        "Items tested within the interface code section are used to measure coverage",
+        "The techniques heavily rely on the tester’s knowledge of the software and the business domain",
+        "The test cases are used to identify deviations from the requirements"
+    ],
+    "correctAnswerIndex": 2
+},
+{
+    "prompt": "You are testing a simplified apartment search form which has only two search criteria:  floor (with three possible options: ground floor; first floor; second or higher floor)  garden type (with three possible options: no garden; small garden; large garden) Only apartments on the ground floor have gardens. The form has a built-in validation mechanism that will not allow you to use the search criteria which violate this rule. Each test has two input values: floor and garden type. You want to apply equivalence partitioning (EP) to cover each floor and each garden type in your tests. What is the minimal number of test cases to achieve 100% EP coverage?",
+    "options": [
+        "3",
+        "4",
+        "5",
+        "6"
+    ],
+    "correctAnswerIndex": 1
+},
+{
+"prompt": "You are testing a system that calculates the final course grade for a given student. The final grade is assigned based on the final result, according to the following rules:  0 – 50 points: failed  51 – 60 points: fair  61 – 70 points: satisfactory  71 – 80 points: good  81 – 90 points: very good  91 – 100 points: excellent You have prepared the following set of test cases: Final result Final grade TC1 91 excellent TC2 50 failed TC3 81 very good TC4 60 fair TC5 70 satisfactory TC6 80 good What is the 2-value Boundary Value Analysis (BVA) coverage for the final result that is achieved with the existing test cases?",
+"options": [
+"a) 50%",
+"b) 60%",
+"c) 33.3%",
+"d) 100%"
+],
+"correctAnswerIndex": 2
+},
+{
+"prompt": "Your favorite bicycle daily rental store has just introduced a new Customer Relationship Management system and asked you, one of their most loyal members, to test it. The implemented features are as follows:  Anyone can rent a bicycle, but members receive a 20% discount  However, if the return deadline is missed, the discount is no longer available  After 15 rentals, members get a gift: a T-Shirt Decision table describing the implemented features looks as follows: Conditions R1 R2 R3 R4 R5 R6 R7 R8 Being a member T T T T F F F F Missed deadline T F T F T F F T 15th rental F F T T F F T T Actions 20% discount X X Gift T-Shirt X X X Based ONLY on the feature description of the Customer Relationship Management system, which of the above rules describes an impossible situation?",
+"options": [
+"a) R4",
+"b) R2",
+"c) R6",
+"d) R8"
+],
+"correctAnswerIndex": 2
+},
+{
+"prompt": "You test a system whose lifecycle is modeled by the state transition diagram shown below. The system starts in the INIT state and ends its operation in the OFF state. What is the MINIMAL number of test cases to achieve valid transitions coverage?",
+"options": [
+"a) 4",
+"b) 2",
+"c) 7",
+"d) 3"
+],
+"correctAnswerIndex": 3
+},
+{
+"prompt": "Your test suite achieved 100% statement coverage. What is the consequence of this fact?",
+"options": [
+"a) Each instruction in the code that contains a defect has been executed at least once",
+"b) Any test suite containing more test cases than your test suite will also achieve 100% statement coverage",
+"c) Each path in the code has been executed at least once",
+"d) Every combination of input values has been tested at least once"
+],
+"correctAnswerIndex": 0
+},
+{
+"prompt": "Which of the following is NOT true for white-box testing?",
+"options": [
+"a) During white-box testing the entire software implementation is considered",
+"b) White-box coverage metrics can help identify additional tests to increase code coverage",
+"c) White-box test techniques can be used in static testing",
+"d) White-box testing can help identify gaps in requirements implementation"
+],
+"correctAnswerIndex": 3
+},
+{
+"prompt": "Which of the following BEST describes the concept behind error guessing?",
+"options": [
+"a) Error guessing involves using your knowledge and experience of defects found in the past and typical errors made by developers",
+"b) Error guessing involves using your personal experience of development and the errors you made as a developer",
+"c) Error guessing requires you to imagine that you are the user of the test object and to guess errors the user could make interacting with it",
+"d) Error guessing requires you to rapidly duplicate the development task to identify the sort of errors a developer might make"
+],
+"correctAnswerIndex": 0
+},
+{
+"prompt": "In your project there has been a delay in the release of a brand-new application and test execution started late, but you have very detailed domain knowledge and good analytical skills. The full list of requirements has not yet been shared with the team, but management is asking for some test results to be presented. Which test technique fits BEST in this situation?",
+"options": [
+"a) Checklist-based testing",
+"b) Error guessing",
+"c) Exploratory testing",
+"d) Branch testing"
+],
+"correctAnswerIndex": 2
+},
+{
+"prompt": "Which of the following BEST describes the way acceptance criteria can be documented?",
+"options": [
+"a) Performing retrospectives to determine the actual needs of the stakeholders regarding a given user story",
+"b) Using the given/when/then format to describe an example test condition related to a given user story",
+"c) Using verbal communication to reduce the risk of misunderstanding the acceptance criteria by others",
+"d) Documenting risks related to a given user story in a test plan to facilitate the risk-based testing of a given user story"
+],
+"correctAnswerIndex": 1
+},
+{
+"prompt": "Consider the following user story: As an Editor I want to review content before it is published so that I can assure the grammar is correct and its acceptance criteria:  The user can log in to the content management system with 'Editor' role  The editor can view existing content pages  The editor can edit the page content  The editor can add markup comments  The editor can save changes  The editor can reassign to the 'content owner' role to make updates Which of the following is the BEST example of an ATDD test for this user story?",
+"options": [
+"a) test if the editor can save the document after deleting the page content",
+"b) test if the content owner can log in and make updates to the content",
+"c) test if the editor can schedule the edited content for publication",
+"d) test if the editor can reassign to another editor to make updates"
+],
+"correctAnswerIndex": 1
+},
+{
+"prompt": "How do testers add value to iteration and release planning?",
+"options": [
+"a) Testers determine the priority of the user stories to be developed",
+"b) Testers focus only on the functional aspects of the system to be tested",
+"c) Testers participate in the detailed risk identification and risk assessment of user stories",
+"d) Testers guarantee the release of high-quality software through early test design during the release planning"
+],
+"correctAnswerIndex": 2
+},
+{
+"prompt": "Which TWO of the following options are the exit criteria for testing a system?",
+"options": [
+"a) Test environment readiness",
+"b) The ability to log in to the test object by the tester",
+"c) Estimated defect density is reached",
+"d) Requirements are translated into given/when/then format",
+"e) Regression tests are automated"
+],
+"correctAnswerIndices": [0, 4]
+},
+{
+"prompt": "Your team uses the three-point estimation technique to estimate the test effort for a new high-risk feature. The following estimates were made:  Most optimistic estimation: 2 person-hours  Most likely estimation: 11 person-hours  Most pessimistic estimation: 14 person-hours What is the final estimate?",
+"options": [
+"a) 9 person-hours",
+"b) 14 person-hours",
+"c) 11 person-hours",
+"d) 10 person-hours"
+],
+"correctAnswerIndex": 3
+},
+{
+"prompt": "You are testing a mobile application that allows users to find a nearby restaurant based on the type of food they want to eat. Consider the following list of test cases, priorities (i.e., a smaller number means a higher priority), and dependencies: Test case number Test condition covered Priority Logical dependency TC 001 Select type of food 3 none TC 002 Select restaurant 2 TC 001 TC 003 Get direction 1 TC 002 TC 004 Call restaurant 2 TC 002 TC 005 Make reservation 3 TC 002 Which of the following test cases should be executed as the third one?",
+"options": [
+"a) TC 003",
+"b) TC 005",
+"c) TC 002",
+"d) TC 001"
+],
+"correctAnswerIndex": 0
+},
+{
+"prompt": "Consider the following test categories (1-4) and agile testing quadrants (A-D): 1. Usability testing 2. Component testing 3. Functional testing 4. Reliability testing A. Agile testing quadrant Q1: technology facing, supporting the development team B. Agile testing quadrant Q2: business facing, supporting the development team C. Agile testing quadrant Q3: business facing, critique the product D. Agile testing quadrant Q4: technology facing, critique the product How do the following test categories map onto the agile testing quadrants?",
+"options": [
+"a) 1C, 2A, 3B, 4D",
+"b) 1D, 2A, 3C, 4B",
+"c) 1C, 2B, 3D, 4A",
+"d) 1D, 2B, 3C, 4A"
+],
+"correctAnswerIndex": 1
+},
+{
+"prompt": "During a risk analysis the following risk was identified and assessed:  Risk: Response time is too long to generate a report  Risk likelihood: medium; risk impact: high  Response to risk: o an independent test team performs performance testing during system testing o a selected sample of end users performs alpha and beta acceptance testing before the release What measure is proposed to be taken in response to this analyzed risk?",
+"options": [
+"a) Risk acceptance",
+"b) Contingency plan",
+"c) Risk mitigation",
+"d) Risk transfer"
+],
+"correctAnswerIndex": 2
+},
+{
+"prompt": "Which tool can be used by an agile team to show the amount of work that has been completed and the amount of total work remaining for a given iteration?",
+"options": [
+"a) Acceptance criteria",
+"b) Defect report",
+"c) Test completion report",
+"d) Burndown chart"
+],
+"correctAnswerIndex": 3
+},
+{
+"prompt": "You need to update one of the automated test scripts to be in line with a new requirement. Which process indicates that you create a new version of the test script in the test repository?",
+"options": [
+"a) Traceability management",
+"b) Maintenance testing",
+"c) Configuration management",
+"d) Requirements engineering"
+],
+"correctAnswerIndex": 1
+},
+{
+"prompt": "You received the following defect report from the developers stating that the anomaly described in this test report is not reproducible. Application hangs up 2022-May-03 – John Doe – Rejected The application hangs up after entering 'Test input: $ä' in the Name field on the new user creation screen. Tried to log off, log in with test_admin01 account, same issue. Tried with other test admin accounts, same issue. No error message received; log (see attached) contains fatal error notification. Based on the test case TC-1305, the application should accept the provided input and create the user. Please fix with high priority, this feature is related to REQ-0012, which is a critical new business requirement. What critical information is MISSING from this test report that would have been useful for the developers?",
+"options": [
+"a) Expected result and actual result",
+"b) References and defect status",
+"c) Test environment and test item",
+"d) Priority and severity"
+],
+"correctAnswerIndex": 0
+},
+{
+"prompt": "Which test activity does a data preparation tool support?",
+"options": [
+"a) Test monitoring and control",
+"b) Test analysis and design",
+"c) Test implementation and execution",
+"d) Test completion"
+],
+"correctAnswerIndex": 2
+},
+{
+"prompt": "Which item correctly identifies a potential risk of performing test automation?",
+"options": [
+"a) It may introduce unknown regressions in production",
+"b) Sufficient efforts to maintain testware may not be properly allocated",
+"c) Testing tools and associated testware may not be sufficiently relied upon",
+"d) It may reduce the time allocated for manual testing"
+],
+"correctAnswerIndex": 1
+}
+
+  ];
+
+        var currentQuestionIndex = 0;
+        var score = 0;
+        var userAnswers = [];
+		
+        // Function to display question and answer options
+		
+		function displayQuestion() {
+    var questionElement = document.getElementById("question");
+    var optionsElement = document.getElementById("options");
+    questionElement.textContent = questions[currentQuestionIndex].prompt;
+    optionsElement.innerHTML = "";
+    questions[currentQuestionIndex].options.forEach(function(option, index) {
+        var radioButton = document.createElement("input");
+        radioButton.type = "radio";
+        radioButton.name = "option";
+        radioButton.value = index;
+        // Pre-select user's previous answer
+        if (userAnswers[currentQuestionIndex] === index) {
+            radioButton.checked = true;
+        }
+        var label = document.createElement("label");
+        label.append(radioButton, option);
+        optionsElement.append(label, document.createElement("br"));
+    });
+}
+/*
+        // Функция для отображения вопроса и вариантов ответов
+        function displayQuestion() {
+            var questionElement = document.getElementById("question");
+            var optionsElement = document.getElementById("options");
+            questionElement.textContent = questions[currentQuestionIndex].prompt;
+            optionsElement.innerHTML = "";
+            questions[currentQuestionIndex].options.forEach(function(option, index) {
+                var radioButton = document.createElement("input");
+                radioButton.type = "radio";
+                radioButton.name = "option";
+                radioButton.value = index;
+                optionsElement.appendChild(radioButton);
+                var label = document.createElement("label");
+                label.textContent = option;
+                optionsElement.appendChild(label);
+                optionsElement.appendChild(document.createElement("br"));
+            });
+        }
+*/
+
+        // Function to check answer
+        function checkAnswer() {
+            var selectedOption = document.querySelector("input[name='option']:checked");
+            if (selectedOption) {
+                var userAnswerIndex = parseInt(selectedOption.value);
+                userAnswers[currentQuestionIndex] = userAnswerIndex; // Store user's answer
+                if (userAnswerIndex === questions[currentQuestionIndex].correctAnswerIndex) {
+                    alert("Correct!");
+					score++;
+                } else {
+                    alert("Incorrect. The correct option is: " + questions[currentQuestionIndex].options[questions[currentQuestionIndex].correctAnswerIndex]);
+                }
+                currentQuestionIndex++;
+                if (currentQuestionIndex < questions.length) {
+                    displayQuestion();
+                } else {
+                    showResults();
+                }
+            } else {
+                alert("Please select an answer!");
+            }
+        }
+		
+		
+        // Function to display quiz results
+        function showResults() {
+            var totalQuestions = questions.length;
+            var correctAnswers = score;
+            var incorrectAnswers = totalQuestions - score;
+            var percentage = (score / totalQuestions) * 100;
+            var resultsHTML = "<h2>Quiz Results</h2>";
+            questions.forEach(function(question, index) {
+                var userAnswerIndex = userAnswers[index];
+                resultsHTML += "<p><strong>Question " + (index + 1) + ":</strong> " + question.prompt + "</p>";
+                if (userAnswerIndex === question.correctAnswerIndex) {
+                    resultsHTML += "<p class='correct'>Your answer: " + question.options[userAnswerIndex] + " (Correct)</p>";
+                } else {
+                    resultsHTML += "<p class='incorrect'>Your answer: " + question.options[userAnswerIndex] + " (Incorrect, Correct answer: " + question.options[question.correctAnswerIndex] + ")</p>";
+                }
+            });
+            resultsHTML += "<p>Total correct answers: " + correctAnswers + "</p>";
+            resultsHTML += "<p>Total incorrect answers: " + incorrectAnswers + "</p>";
+            resultsHTML += "<p>Percentage: " + percentage.toFixed(1) + "%</p>";
+            document.body.innerHTML = resultsHTML;
+        }
+
+        // Start the quiz
+        displayQuestion();
+    </script>
+</body>
+</html>

@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        .container {
+            max-width: 600px;
+            margin: 20px auto;
+            background-color: #fff;
+            border-radius: 5px;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        #question {
+            font-size: 20px;
+            margin-bottom: 20px;
+        }
+        #options {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 10px;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #4caf50;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .correct {
+            color: green;
+        }
+        .incorrect {
+            color: red;
+        }
+
+		
+    </style>
+</head>
+<body>
+
+	
+	<body>
+    <div class="container">
+        <h1>Quiz</h1>
+        <div id="question"></div>
+        <div id="options"></div>
+        <button onclick="checkAnswer()">Submit</button>
+    </div>
+
+    <script>
+        // Questions and answers
+        var questions = [
+{
+"prompt": "What is the main purpose of root cause analysis in quality assurance?",
+"options": [
+"To outline how development teams can code faster",
+"To specify the desired root causes to be achieved by other teams",
+"To contribute to the justification of future project funding",
+"To better identify and correct the root cause of defects"
+],
+"correctAnswerIndex": 3
+},
+
+{
+"prompt": "In an Agile team where testers are being accused of slowing down the process, what approach would better spread the skills of the team to complete tasks?",
+"options": [
+"Whole Team",
+"Team Split",
+"Behavior-Driven Development",
+"Waterfall"
+],
+"correctAnswerIndex": 0
+},
+
+{
+"prompt": "Which of the following is an example of debugging?",
+"options": [
+"A tester finds a defect and reports it",
+"A tester retests a fix from the developer and finds a regression",
+"A developer finds and fixes a defect",
+"A developer performs unit testing"
+],
+"correctAnswerIndex": 2
+},
+
+{
+"prompt": "What is a true statement about exhaustive testing?",
+"options": [
+"It is a form of stress testing",
+"It is not feasible except in the case of trivial software",
+"It is commonly done with test automation",
+"It is normally the responsibility of the developer during unit testing"
+],
+"correctAnswerIndex": 1
+},
+
+{
+"prompt": "If you need to provide a report showing test case execution coverage of the requirements, what do you need to track?",
+"options": [
+"Traceability between the test cases and the requirements",
+"Coverage of the risk items by test case",
+"Traceability between the requirements and the risk items",
+"Coverage of the requirements by the test cases that have been designed"
+],
+"correctAnswerIndex": 0
+},
+
+{
+"prompt": "Who normally writes the test plan for a project?",
+"options": [
+"The project manager",
+"The product owner",
+"The test manager",
+"The tester"
+],
+"correctAnswerIndex": 2
+},
+
+{
+"prompt": "Your team has conducted a quality risk analysis and has determined the likelihood, impact, and mitigation plan for each identified risk. This information should be captured in what work product?",
+"options": [
+"Test strategy",
+"Test plan",
+"Risk register",
+"Risk plan"
+],
+"correctAnswerIndex": 2
+},
+
+{
+"prompt": "You are working with a junior tester who has been given a user story to test. They have created only one positive path test for the story. Which of the following generic skills do they appear to be lacking?",
+"options": [
+"Communication",
+"Curiosity",
+"Confidence",
+"Creativity"
+],
+"correctAnswerIndex": 3
+},
+
+{
+"prompt": "Which of the following is an example of a good testing practice?",
+"options": [
+"Different test levels should have specific test objectives",
+"Testers should have development experience",
+"Developers should determine the order of test execution in the test procedures",
+"Test design should begin when the code is complete to avoid changes"
+],
+"correctAnswerIndex": 0
+},
+
+{
+"prompt": "Which development approach captures the requirements in a simple test case format?",
+"options": [
+"TDD",
+"BDD",
+"ATDD",
+"TBD"
+],
+"correctAnswerIndex": 1
+},
+
+{
+"prompt": "Usability testing is an example of which type of testing?",
+"options": [
+"Functional",
+"Non-functional",
+"Structural",
+"Change-related"
+],
+"correctAnswerIndex": 1
+},
+
+{
+"prompt": "You have been receiving daily builds from the developers, but the fixes either aren’t in the build or are not working. What type of testing is best suited for finding these issues?",
+"options": [
+"Unit testing",
+"System testing",
+"Confirmation testing",
+"Regression testing"
+],
+"correctAnswerIndex": 2
+},
+
+{
+"prompt": "Your team has just completed a retrospective. What else do they need to discuss in order to recognize process improvements?",
+"options": [
+"What will be retained or changed for the future",
+"Who is to blame for the shortcomings of the project",
+"How much money was spent that could have been saved",
+"Why changes were not made earlier in the project"
+],
+"correctAnswerIndex": 0
+},
+
+{
+"prompt": "Your organization has decided to implement DevOps. How will implementing DevOps and CI/CD help with ongoing performance issues in production?",
+"options": [
+"It won’t - the problem needs to be addressed during design",
+"Performance testing can be integrated into the CI/CD pipeline to test it incrementally and repeatedly throughout development",
+"Performance testing will be the main focus of the system integration testing, after the code has been delivered to the test environment",
+"Performance testing experts will be used to conduct the performance testing in an isolated environment which is developed using Infrastructure as Code"
+],
+"correctAnswerIndex": 1
+},
+
+{
+"prompt": "Which technique is a form of static testing?",
+"options": [
+"Error guessing",
+"Automated regression testing",
+"Providing inputs and examining the resulting outputs",
+"Code review"
+],
+"correctAnswerIndex": 3
+},
+
+{
+"prompt": "You're frequently asked to participate in reviews of requirements, but you receive the document the night before the review meeting, resulting in rushed reviews. What review success factor is missing from this process?",
+"options": [
+"Management support for the overall review process",
+"Reviewing only small chunks at a time",
+"Training for the proper performance in the meetings",
+"Allowing adequate time to conduct the review"
+],
+"correctAnswerIndex": 3
+},
+
+{
+"prompt": "What is the main difference between static and dynamic testing?",
+"options": [
+"Static testing is performed by developers; dynamic testing is performed by testers",
+"Manual test cases are used for dynamic testing; automated tests are used for static testing",
+"Static testing must be executed before dynamic testing",
+"Dynamic testing requires executing the software; the software is not executed during static testing"
+],
+"correctAnswerIndex": 3
+},
+
+{
+"prompt": "If a review session is led by the author of the work product, what type of review is it?",
+"options": [
+"Ad hoc",
+"Walkthrough",
+"Inspection",
+"Audit"
+],
+"correctAnswerIndex": 1
+},
+
+{
+"prompt": "If test cases are derived from looking at the code, what type of test design technique is being used?",
+"options": [
+"Black-box",
+"White-box",
+"Specification-based",
+"Behavior-based"
+],
+"correctAnswerIndex": 1
+},
+
+{
+"prompt": "How is statement coverage determined?",
+"options": [
+"Number of test decision points divided by the number of test cases",
+"Number of branches tested divided by the total number of executable statements",
+"Number of possible test case outcomes divided by the total number of function points",
+"Number of executable statements tested divided by the total number of executable statements"
+],
+"correctAnswerIndex": 3
+},
+
+{
+    "prompt": "You are working on a project with very tight deadlines. The code is being developed but is not yet executable. What type of testing could you apply that would help find defects now?",
+    "options": [
+        "Black-box",
+        "White-box",
+        "Experience-based",
+        "Factor-based"
+    ],
+    "correctAnswerIndex": 1
+},
+
+{
+    "prompt": "If you are using error guessing to target your testing, which type of testing are you doing?",
+    "options": [
+        "Specification-based",
+        "Structure-based",
+        "Experience-based",
+        "Reference-based"
+    ],
+    "correctAnswerIndex": 2
+},
+
+{
+    "prompt": "When exploratory testing is conducted using time-boxing and test charters, what is it called?",
+    "options": [
+        "Schedule-based testing",
+        "Session-based testing",
+        "Risk-based testing",
+        "Formal chartering"
+    ],
+    "correctAnswerIndex": 1
+},
+
+{
+    "prompt": "You are writing some acceptance criteria for a story. You have decided to make a list of all the likely inputs to the code and the expected outputs based on those inputs. What format are you using?",
+    "options": [
+        "IPO chart",
+        "Acceptance-based",
+        "Rules-oriented",
+        "Behavior-driven"
+    ],
+    "correctAnswerIndex": 2
+},
+
+{
+    "prompt": "You are testing a banking application that allows a customer to withdraw 20, 100 or 500 dollars in a single transaction. The values are chosen from a drop-down list and no other values may be entered. How many equivalence partitions need to be tested to achieve 100% equivalence partition coverage?",
+    "options": [
+        "1",
+        "2",
+        "3",
+        "4"
+    ],
+    "correctAnswerIndex": 3
+},
+
+{
+    "prompt": "You are testing a scale system that determines shipping rates for a regional web-based auto parts distributor. Due to regulations, shipments cannot exceed 100 lbs. You want to include boundary value analysis as part of your black-box test design. How many tests will you need to execute to achieve 100% two-value boundary value analysis?",
+    "options": [
+        "4",
+        "8",
+        "10",
+        "12"
+    ],
+    "correctAnswerIndex": 2
+},
+
+{
+    "prompt": "Which of the following is the correct decision table for the following pseudocode for ordering a hamburger? Note: if you add or delete items from the basic burger, you no longer get the basic burger.",
+    "options": [
+        "Option a",
+        "Option b",
+        "Option c",
+        "Option d"
+    ],
+    "correctAnswerIndex": 1
+},
+
+{
+    "prompt": "For a state transition diagram, how many transitions should be shown?",
+    "options": [
+        "4",
+        "6",
+        "8",
+        "16"
+    ],
+    "correctAnswerIndex": 2
+},
+
+{
+    "prompt": "You have decided to apply boundary value analysis to this requirement and have identified the following partitions for the occupancy of a floor: 0 | 1 - floor full | overbooked. What are you missing?",
+    "options": [
+        "A test with a floor partially occupied but not fully occupied",
+        "A test for performance",
+        "A test for trying to assign someone to a floor that is full",
+        "A test for usability"
+    ],
+    "correctAnswerIndex": 2
+},
+
+{
+    "prompt": "Level of risk is determined by which of the following?",
+    "options": [
+        "Likelihood and impact",
+        "Priority and risk rating",
+        "Probability and practicality",
+        "Risk identification and mitigation"
+    ],
+    "correctAnswerIndex": 0
+},
+
+{
+    "prompt": "Which of the following is an example of a good exit criterion from system testing?",
+    "options": [
+        "All tests should be completed",
+        "The project budget should be spent",
+        "All defects should be fixed",
+        "All severity 1 defects must be resolved"
+    ],
+    "correctAnswerIndex": 3
+},
+
+{
+    "prompt": "You are working on a project and have determined that exploratory testing is the best test technique to apply. Which testing quadrant are you using?",
+    "options": [
+        "Q1",
+        "Q2",
+        "Q3",
+        "Q4"
+    ],
+    "correctAnswerIndex": 2
+},
+
+{
+    "prompt": "Which of the following is a project risk?",
+    "options": [
+        "A defect that is causing a performance issue",
+        "A duplicate requirement",
+        "An issue with a data conversion procedure",
+        "A schedule that requires work during Christmas shutdown"
+    ],
+    "correctAnswerIndex": 3
+},
+
+{
+    "prompt": "What test documentation should be produced at this time?",
+    "options": [
+        "Formal test summary report",
+        "Testing team task board",
+        "Email to the team congratulating them on their success",
+        "Burn down chart"
+    ],
+    "correctAnswerIndex": 0
+},
+
+{
+    "prompt": "How can configuration management help you gather more information on this failure?",
+    "options": [
+        "You can see what changed in iteration 4 to fix the problem",
+        "You can reload and retest iterations 5 and 6 to see where the problem was reintroduced",
+        "You can review all the code changes that have occurred since iteration 4 to see what might have broken it",
+        "You can improve the regression testing to ensure the failure is caught earlier"
+    ],
+    "correctAnswerIndex": 1
+},
+
+{
+    "prompt": "Using the average numbers from the table above and applying the three-point estimation technique, what is the estimate?",
+    "options": [
+        "325 ± 45",
+        "81.25 ± 8",
+        "54.17 ± 7.5",
+        "40 ± 2"
+    ],
+    "correctAnswerIndex": 2
+},
+
+{
+    "prompt": "Given this information, what is the proper order in which to execute these test cases?",
+    "options": [
+        "5, 1, 3, 2, 4",
+        "1, 2, 4, 5, 3",
+        "1, 3, 2, 4, 5",
+        "3, 4, 5, 1, 2"
+    ],
+    "correctAnswerIndex": 1
+},
+
+{
+    "prompt": "What is the biggest problem with this defect report?",
+    "options": [
+        "The developer won’t know how important the problem is",
+        "The developer won’t know how to repeat the test",
+        "The developer won’t be able to see what the tester is saying is wrong",
+        "The developer won’t know what the tester expected to see"
+    ],
+    "correctAnswerIndex": 3
+},
+
+{
+    "prompt": "What is the primary purpose of a test execution tool?",
+    "options": [
+        "It runs automated test scripts to test the test object",
+        "It automatically records defects in the defect tracking system",
+        "It analyzes code to determine if there are any coding standard violations",
+        "It tracks test cases, defects and requirements traceability"
+    ],
+    "correctAnswerIndex": 0
+},
+
+{
+    "prompt": "Which of the following is a risk with test automation?",
+    "options": [
+        "Using an automation tool that will not be supported in the future",
+        "Developing test automation for particularly tedious manual testing areas",
+        "Using technical testers to implement the automation",
+        "Developing automated reporting"
+    ],
+    "correctAnswerIndex": 0
+}
+
+  ];
+
+        var currentQuestionIndex = 0;
+        var score = 0;
+        var userAnswers = [];
+		
+        // Function to display question and answer options
+		
+		function displayQuestion() {
+    var questionElement = document.getElementById("question");
+    var optionsElement = document.getElementById("options");
+    questionElement.textContent = questions[currentQuestionIndex].prompt;
+    optionsElement.innerHTML = "";
+    questions[currentQuestionIndex].options.forEach(function(option, index) {
+        var radioButton = document.createElement("input");
+        radioButton.type = "radio";
+        radioButton.name = "option";
+        radioButton.value = index;
+        // Pre-select user's previous answer
+        if (userAnswers[currentQuestionIndex] === index) {
+            radioButton.checked = true;
+        }
+        var label = document.createElement("label");
+        label.append(radioButton, option);
+        optionsElement.append(label, document.createElement("br"));
+    });
+}
+/*
+        // Функция для отображения вопроса и вариантов ответов
+        function displayQuestion() {
+            var questionElement = document.getElementById("question");
+            var optionsElement = document.getElementById("options");
+            questionElement.textContent = questions[currentQuestionIndex].prompt;
+            optionsElement.innerHTML = "";
+            questions[currentQuestionIndex].options.forEach(function(option, index) {
+                var radioButton = document.createElement("input");
+                radioButton.type = "radio";
+                radioButton.name = "option";
+                radioButton.value = index;
+                optionsElement.appendChild(radioButton);
+                var label = document.createElement("label");
+                label.textContent = option;
+                optionsElement.appendChild(label);
+                optionsElement.appendChild(document.createElement("br"));
+            });
+        }
+*/
+
+        // Function to check answer
+        function checkAnswer() {
+            var selectedOption = document.querySelector("input[name='option']:checked");
+            if (selectedOption) {
+                var userAnswerIndex = parseInt(selectedOption.value);
+                userAnswers[currentQuestionIndex] = userAnswerIndex; // Store user's answer
+                if (userAnswerIndex === questions[currentQuestionIndex].correctAnswerIndex) {
+                    alert("Correct!");
+					score++;
+                } else {
+                    alert("Incorrect. The correct option is: " + questions[currentQuestionIndex].options[questions[currentQuestionIndex].correctAnswerIndex]);
+                }
+                currentQuestionIndex++;
+                if (currentQuestionIndex < questions.length) {
+                    displayQuestion();
+                } else {
+                    showResults();
+                }
+            } else {
+                alert("Please select an answer!");
+            }
+        }
+		
+		
+        // Function to display quiz results
+        function showResults() {
+            var totalQuestions = questions.length;
+            var correctAnswers = score;
+            var incorrectAnswers = totalQuestions - score;
+            var percentage = (score / totalQuestions) * 100;
+            var resultsHTML = "<h2>Quiz Results</h2>";
+            questions.forEach(function(question, index) {
+                var userAnswerIndex = userAnswers[index];
+                resultsHTML += "<p><strong>Question " + (index + 1) + ":</strong> " + question.prompt + "</p>";
+                if (userAnswerIndex === question.correctAnswerIndex) {
+                    resultsHTML += "<p class='correct'>Your answer: " + question.options[userAnswerIndex] + " (Correct)</p>";
+                } else {
+                    resultsHTML += "<p class='incorrect'>Your answer: " + question.options[userAnswerIndex] + " (Incorrect, Correct answer: " + question.options[question.correctAnswerIndex] + ")</p>";
+                }
+            });
+            resultsHTML += "<p>Total correct answers: " + correctAnswers + "</p>";
+            resultsHTML += "<p>Total incorrect answers: " + incorrectAnswers + "</p>";
+            resultsHTML += "<p>Percentage: " + percentage.toFixed(1) + "%</p>";
+            document.body.innerHTML = resultsHTML;
+        }
+
+        // Start the quiz
+        displayQuestion();
+    </script>
+</body>
+</html>
+
